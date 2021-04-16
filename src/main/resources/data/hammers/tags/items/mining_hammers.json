@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "hammers:wooden_mining_hammer",
+    "hammers:stone_mining_hammer",
+    "hammers:golden_mining_hammer",
+    "hammers:iron_mining_hammer",
+    "hammers:diamond_mining_hammer",
+    "hammers:netherite_mining_hammer"
+  ]
+}
