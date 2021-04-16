@@ -1,21 +1,22 @@
 package com.thundersphun.hammers.util;
 
 import com.thundersphun.hammers.Hammers;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
+import net.minecraft.util.Lazy;
+
+import java.util.function.Supplier;
 
 public enum HammerToolMaterial implements ToolMaterial {
-	WOOD(ToolMaterials.WOOD, false, ItemTags.LOGS),
-	STONE(ToolMaterials.STONE, false, Hammers.STURDY_STONE_TAG),
-	GOLD(ToolMaterials.GOLD, false, Items.GOLD_BLOCK),
-	IRON(ToolMaterials.IRON, false, Items.IRON_BLOCK),
-	DIAMOND(ToolMaterials.DIAMOND, false, Items.DIAMOND_BLOCK),
-	NETHERITE(ToolMaterials.NETHERITE, true, Items.NETHERITE_BLOCK);
+	WOOD(ToolMaterials.WOOD, false, () -> Ingredient.fromTag(ItemTags.LOGS)),
+	STONE(ToolMaterials.STONE, false, () -> Ingredient.fromTag(Hammers.STURDY_STONE_TAG)),
+	GOLD(ToolMaterials.GOLD, false, () -> Ingredient.ofItems(Items.GOLD_BLOCK)),
+	IRON(ToolMaterials.IRON, false, () -> Ingredient.ofItems(Items.IRON_BLOCK)),
+	DIAMOND(ToolMaterials.DIAMOND, false, () -> Ingredient.ofItems(Items.DIAMOND_BLOCK)),
+	NETHERITE(ToolMaterials.NETHERITE, true, () -> Ingredient.ofItems(Items.NETHERITE_BLOCK));
 
 	private final float attackDamage;
 	private final int durability;
@@ -23,26 +24,16 @@ public enum HammerToolMaterial implements ToolMaterial {
 	private final int miningLevel;
 	private final float miningSpeed;
 	private final boolean fireProof;
-	private Ingredient repair;
+	private final Lazy<Ingredient> repair;
 
-	HammerToolMaterial(ToolMaterial base, boolean fireProof) {
+	HammerToolMaterial(ToolMaterial base, boolean fireProof, Supplier<Ingredient> repairItems) {
 		this.attackDamage = base.getAttackDamage();
 		this.durability = (int) (base.getDurability() * 2.5);
 		this.enchantability = base.getEnchantability();
 		this.miningLevel = base.getMiningLevel();
 		this.miningSpeed = base.getMiningSpeedMultiplier() * 0.75f;
 		this.fireProof = fireProof;
-		this.repair = null;
-	}
-
-	HammerToolMaterial(ToolMaterial base, boolean fireProof, Item... repairItems) {
-		this(base, fireProof);
-		this.repair = Ingredient.ofItems(repairItems);
-	}
-
-	HammerToolMaterial(ToolMaterial base, boolean fireProof, Tag<Item> repairItems) {
-		this(base, fireProof);
-		this.repair = Ingredient.fromTag(repairItems);
+		this.repair = new Lazy<>(repairItems);
 	}
 
 	@Override
@@ -76,7 +67,7 @@ public enum HammerToolMaterial implements ToolMaterial {
 
 	@Override
 	public Ingredient getRepairIngredient() {
-		return this.repair;
+		return this.repair.get();
 	}
 
 	@Override

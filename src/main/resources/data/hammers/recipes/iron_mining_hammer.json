@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sws",
+    "s|s",
+    " | "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:iron_block"
+    },
+    "w": {
+      "item": "minecraft:iron_ingot"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammers:iron_mining_hammer"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sws",
+    "s|s",
+    " | "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:diamond_block"
+    },
+    "w": {
+      "item": "minecraft:diamond"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammers:diamond_mining_hammer"
+  }
+}

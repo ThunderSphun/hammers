@@ -32,7 +32,7 @@ public class Hammers implements ModInitializer, ClientModInitializer, DedicatedS
 	public static final EnumMap<HammerToolMaterial, Item> MINING_HAMMERS = new EnumMap<>(HammerToolMaterial.class);
 	private static final String MOD_ID = "hammers";
 	public static final Tag<Item> MINING_TAG = TagRegistry.item(id("mining_hammers"));
-	public static final Tag<Item> STURDY_STONE_TAG = TagRegistry.item(id("sturdy_stone"));
+	public static final Tag<Item> STURDY_STONE_TAG = TagRegistry.item(id("sturdy_stones"));
 
 	public static Identifier id(String id) {
 		return new Identifier(MOD_ID, id);

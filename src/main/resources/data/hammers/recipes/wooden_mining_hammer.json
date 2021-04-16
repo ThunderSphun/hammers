@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sws",
+    "s|s",
+    " | "
+  ],
+  "key": {
+    "s": {
+      "tag": "minecraft:logs"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammers:wooden_mining_hammer"
+  }
+}

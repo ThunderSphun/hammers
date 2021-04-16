@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sws",
+    "s|s",
+    " | "
+  ],
+  "key": {
+    "s": {
+      "tag": "hammers:sturdy_stones"
+    },
+    "w": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammers:stone_mining_hammer"
+  }
+}

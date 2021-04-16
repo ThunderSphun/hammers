@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sws",
+    "s|s",
+    " | "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:gold_block"
+    },
+    "w": {
+      "item": "minecraft:gold_ingot"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "hammers:golden_mining_hammer"
+  }
+}

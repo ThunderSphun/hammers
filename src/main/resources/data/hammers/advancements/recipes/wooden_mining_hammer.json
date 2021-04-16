@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {"recipes": ["hammers:wooden_mining_hammer"]},
+  "criteria": {
+    "has_pick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {"items": [{"item": "minecraft:wooden_pickaxe"}]}
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {"recipe": "hammers:wooden_mining_hammer"}
+    }
+  },
+  "requirements": [
+    [
+      "has_pick",
+      "has_recipe"
+    ]
+  ]
+}
