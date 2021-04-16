@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.thundersphun.hammers.hammers.mixin",
+  "package": "com.thundersphun.hammers.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-  ],
-  "client": [
+    "BlockRenderManagerMixin",
+    "PickaxeItemAccessor",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
