@@ -1,6 +1,9 @@
 package com.thundersphun.hammers.mixin;
 
+import com.thundersphun.hammers.Hammers;
+import com.thundersphun.hammers.item.MiningHammer;
 import com.thundersphun.hammers.util.AreaEffect;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -11,7 +14,9 @@ import net.minecraft.client.render.block.BlockModels;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.resource.SynchronousResourceReloadListener;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.BlockRenderView;
@@ -24,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
+import java.util.Set;
 
 @Mixin(BlockRenderManager.class)
 abstract class BlockRenderManagerMixin implements SynchronousResourceReloadListener {
@@ -42,15 +48,22 @@ abstract class BlockRenderManagerMixin implements SynchronousResourceReloadListe
 	private void renderBlockDamage(BlockState state, BlockPos pos, BlockRenderView world, MatrixStack matrix, VertexConsumer vertexConsumer, CallbackInfo ci) {
 		if (state.getRenderType() == BlockRenderType.MODEL) {
 			PlayerEntity player = MinecraftClient.getInstance().player;
-			AreaEffect.useOnArea(player, (World) world, pos, (offsetPos, hand) -> {
-				matrix.push();
-				BlockState offsetState = world.getBlockState(offsetPos);
-				BlockPos offset = pos.subtract(offsetPos);
-				matrix.translate(-offset.getX(), -offset.getY(), -offset.getZ());
-				this.blockModelRenderer.render(world, this.models.getModel(offsetState), offsetState, offsetPos, matrix,
-						vertexConsumer, true, this.random, offsetState.getRenderingSeed(offsetPos), OverlayTexture.DEFAULT_UV);
-				matrix.pop();
-			});
+			Item item = player.getStackInHand(Hand.MAIN_HAND).getItem();
+			if (item.isIn(Hammers.MINING_TAG) && item instanceof MiningHammer) {
+				Set<Block> effectiveBlocks = PickaxeItemAccessor.getEffectiveBlocks();
+
+				if (effectiveBlocks.contains(state.getBlock()) || item.isEffectiveOn(state)) {
+					AreaEffect.useOnArea(player, (World) world, pos, (offsetPos, hand) -> {
+						matrix.push();
+						BlockState offsetState = world.getBlockState(offsetPos);
+						BlockPos offset = pos.subtract(offsetPos);
+						matrix.translate(-offset.getX(), -offset.getY(), -offset.getZ());
+						this.blockModelRenderer.render(world, this.models.getModel(offsetState), offsetState, offsetPos, matrix,
+								vertexConsumer, true, this.random, offsetState.getRenderingSeed(offsetPos), OverlayTexture.DEFAULT_UV);
+						matrix.pop();
+					});
+				}
+			}
 		}
 	}
 }

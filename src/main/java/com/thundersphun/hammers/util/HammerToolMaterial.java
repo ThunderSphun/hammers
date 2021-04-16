@@ -11,12 +11,12 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum HammerToolMaterial implements ToolMaterial {
-	WOOD(ToolMaterials.WOOD, false, () -> Ingredient.fromTag(ItemTags.LOGS)),
-	STONE(ToolMaterials.STONE, false, () -> Ingredient.fromTag(Hammers.STURDY_STONE_TAG)),
-	GOLD(ToolMaterials.GOLD, false, () -> Ingredient.ofItems(Items.GOLD_BLOCK)),
-	IRON(ToolMaterials.IRON, false, () -> Ingredient.ofItems(Items.IRON_BLOCK)),
-	DIAMOND(ToolMaterials.DIAMOND, false, () -> Ingredient.ofItems(Items.DIAMOND_BLOCK)),
-	NETHERITE(ToolMaterials.NETHERITE, true, () -> Ingredient.ofItems(Items.NETHERITE_BLOCK));
+	WOOD(ToolMaterials.WOOD, false, () -> Ingredient.fromTag(ItemTags.PLANKS)),
+	STONE(ToolMaterials.STONE, false, () -> Ingredient.fromTag(ItemTags.STONE_TOOL_MATERIALS)),
+	GOLD(ToolMaterials.GOLD, false, () -> Ingredient.ofItems(Items.GOLD_INGOT)),
+	IRON(ToolMaterials.IRON, false, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+	DIAMOND(ToolMaterials.DIAMOND, false, () -> Ingredient.ofItems(Items.DIAMOND)),
+	NETHERITE(ToolMaterials.NETHERITE, true, () -> Ingredient.ofItems(Items.NETHERITE_INGOT));
 
 	private final float attackDamage;
 	private final int durability;
@@ -31,7 +31,7 @@ public enum HammerToolMaterial implements ToolMaterial {
 		this.durability = (int) (base.getDurability() * 2.5);
 		this.enchantability = base.getEnchantability();
 		this.miningLevel = base.getMiningLevel();
-		this.miningSpeed = base.getMiningSpeedMultiplier() * 0.75f;
+		this.miningSpeed = base.getMiningSpeedMultiplier() / 2f;
 		this.fireProof = fireProof;
 		this.repair = new Lazy<>(repairItems);
 	}

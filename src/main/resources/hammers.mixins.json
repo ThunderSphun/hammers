@@ -4,6 +4,7 @@
   "package": "com.thundersphun.hammers.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AbstractFurnaceBlockEntityMixin",
     "BlockRenderManagerMixin",
     "PickaxeItemAccessor",
     "WorldRendererMixin"
